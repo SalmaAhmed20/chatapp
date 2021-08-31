@@ -1,4 +1,10 @@
+import 'package:chatapp/appConfigProvider/AppProvider.dart';
+import 'package:chatapp/home/Home.dart';
+import 'package:chatapp/model/User.dart' as MyUser;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = "Register";
@@ -14,7 +20,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String _email = '';
   String _password = '';
   bool _obscureText = true;
+  bool isLoading = false;
+  late AppProvider provider;
   Widget build(BuildContext context) {
+    provider=Provider.of<AppProvider>(context);
     return Stack(children: [
       Container(
         color: Colors.white,
@@ -36,8 +45,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               margin: EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Spacer(),
                   TextFormField(
                     onChanged: (newVal) {
                       _userName = newVal;
@@ -108,25 +117,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onSaved: (val) => _password = val!,
                     obscureText: _obscureText,
                   ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            "Create Account",
-                            style: TextStyle(
-                                fontFamily: "Poppins",
-                                color: Color(0xFFBDBDBD),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600),
+                  //bugs
+                  Spacer(),
+                  isLoading
+                      ? CircularProgressIndicator()
+                      : ElevatedButton(
+                          onPressed: () {
+                            CreateUser();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Create Account",
+                                  style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      color: Color(0xFFA7A7A7),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                ImageIcon(
+                                    AssetImage(
+                                        "assets/icons/3.0x/nextarrow@3x.png"),
+                                    color: Color(0xFFA7A7A7)),
+                              ],
+                            ),
                           ),
-                          ImageIcon(
-                              AssetImage("assets/icons/3.0x/nextarrow@3x.png"),
-                              color: Color(0xFFBDBDBD)),
-                        ],
-                      )
-                  )
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              elevation: MaterialStateProperty.all(8),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ))),
+                        )
                 ],
               ),
             ),
@@ -139,6 +167,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  void CreateUser() {
+    if (_RegisterKey.currentState?.validate() != null) {
+      RegisterUser();
+    }
+  }
+
+  void RegisterUser() async {
+    setState(() {
+      this.isLoading = true;
+    });
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: this._email, password: this._password);
+      ShowMessage("Sucess");
+      final userRef = FirebaseFirestore.instance
+          .collection(MyUser.User.COLLECTION_NAME)
+          .withConverter<MyUser.User>(
+            fromFirestore: (snapshot, _) =>
+                MyUser.User.fromJson(snapshot.data()!),
+            toFirestore: (user, _) => user.toJson(),
+          );
+      final user = MyUser.User(
+          id: userCredential.user!.uid, email: _email, userName: _userName);
+      userRef.add(user).then((value) {
+        provider.ChangeUser(user);
+        Navigator.pushReplacementNamed(context,Home.routeName);
+      });
+    } on FirebaseAuthException catch (e) {
+      ShowMessage(e.message ?? "Something went wrong");
+    } catch (e) {
+      print(e);
+    }
+    setState(() {
+      this.isLoading = false;
+    });
+  }
+
+  void ShowMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (buildContext) {
+          return AlertDialog(
+            content: Text(message,
+                style: TextStyle(
+                    fontFamily: "Poppins", color: Colors.black, fontSize: 18)),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Ok", style: TextStyle(fontFamily: "Poppins")))
+            ],
+          );
+        });
   }
 }
 
