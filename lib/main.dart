@@ -1,4 +1,5 @@
 import 'package:chatapp/appConfigProvider/AppProvider.dart';
+import 'package:chatapp/auth/LoginScreen.dart';
 import 'package:chatapp/auth/RegisterScreen.dart';
 import 'package:chatapp/home/Home.dart';
 import 'package:chatapp/splachScreen/SplachScreen.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     builder: (context,widget){
       return MaterialApp(routes: {
         SplashScreen.routeName:(buildContext)=>SplashScreen(),
+        LoginScreen.routeName:(buildContext)=>LoginScreen(),
         RegisterScreen.routeName:(buildContext)=>RegisterScreen(),
         Home.routeName:(buildContext)=>Home()
       },

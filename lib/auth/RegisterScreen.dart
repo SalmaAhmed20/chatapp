@@ -2,7 +2,6 @@ import 'package:chatapp/appConfigProvider/AppProvider.dart';
 import 'package:chatapp/database/DataBaseManger.dart';
 import 'package:chatapp/home/Home.dart';
 import 'package:chatapp/model/User.dart' as MyUser;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class loginScreen extends StatefulWidget {
- static const ROUTE_NAME ='Login';
+class LoginScreen extends StatefulWidget {
+ static const routeName ='Login';
   @override
   _LoginScreen createState() => _LoginScreen();
 }
 
-class _LoginScreen extends State<loginScreen> {
+class _LoginScreen extends State<LoginScreen> {
   final _registerFormKey = GlobalKey<FormState>();
   String email='';
   String password= '';
@@ -56,7 +56,7 @@ class _LoginScreen extends State<loginScreen> {
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
                           ),
                           validator: (String? contentOfEmail){
-                            if(contentOfEmail.isEmpty || contentOfEmail ==null){
+                            if(contentOfEmail!.isEmpty || contentOfEmail ==null){
                               return 'Please enter Email';
                             }else if(!isValidEmail(contentOfEmail)){
                               return 'Please enter valid Email';
@@ -75,7 +75,7 @@ class _LoginScreen extends State<loginScreen> {
                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                ),
                                validator: (String? contentOfPassword){
-                                 if(contentOfPassword.isEmpty || contentOfPassword ==null){
+                                 if(contentOfPassword!.isEmpty || contentOfPassword ==null){
                                    return 'Please enter Password';
                                  }else if(!isValidPassword(contentOfPassword)){
                                    return 'Password must be at least 6 characters';
@@ -95,10 +95,9 @@ class _LoginScreen extends State<loginScreen> {
                       }
                     }, child: Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: isLoading?Center(child:circularProgressIndicator()): Text('Login'),
+                      child: isLoading?Center(child:CircularProgressIndicator()): Text('Login'),
                     )
-                   )
-                    , Spacer(),
+                   ), Spacer(),
                     TextButton(
                       child: Text('Or Create My Account!'),
                       onPressed:(){
