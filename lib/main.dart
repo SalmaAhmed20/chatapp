@@ -1,6 +1,10 @@
+import 'package:chatapp/home/HomeScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -16,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -27,8 +31,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return MaterialApp(routes: {
+      HomeScreen.ROUTE_NAME:(buildContext)=>HomeScreen(),
+    },
+      initialRoute: HomeScreen.ROUTE_NAME,);
+      }
   }
 
-}
+
