@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chatapp/auth/LoginScreen.dart';
 import 'package:chatapp/auth/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       Duration(seconds: 3),
           () => Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => RegisterScreen())),
+          context, MaterialPageRoute(builder: (context) => LoginScreen())),
     );
   }
 
