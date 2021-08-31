@@ -40,9 +40,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 120.0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 180.0),
                       child: SizedBox(
-                        height: 200,
+                        height: 150,
                         child: Image(
                           image: AssetImage('assets/icons/3.0x/Applogo@3x.png'),
                         ),
