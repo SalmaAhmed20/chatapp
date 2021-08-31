@@ -193,7 +193,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           );
       final user = MyUser.User(
           id: userCredential.user!.uid, email: _email, userName: _userName);
-      userRef.add(user).then((value) {
+      userRef.doc(user.id).set(user).then((value) {
         provider.ChangeUser(user);
         Navigator.pushReplacementNamed(context,Home.routeName);
       });
