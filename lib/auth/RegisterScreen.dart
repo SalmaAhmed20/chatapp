@@ -1,4 +1,5 @@
 import 'package:chatapp/appConfigProvider/AppProvider.dart';
+import 'package:chatapp/database/DataBaseManger.dart';
 import 'package:chatapp/home/Home.dart';
 import 'package:chatapp/model/User.dart' as MyUser;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -184,13 +185,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           .createUserWithEmailAndPassword(
               email: this._email, password: this._password);
       ShowMessage("Sucess");
-      final userRef = FirebaseFirestore.instance
-          .collection(MyUser.User.COLLECTION_NAME)
-          .withConverter<MyUser.User>(
-            fromFirestore: (snapshot, _) =>
-                MyUser.User.fromJson(snapshot.data()!),
-            toFirestore: (user, _) => user.toJson(),
-          );
+      final userRef =getUsersRefWithConventer();
       final user = MyUser.User(
           id: userCredential.user!.uid, email: _email, userName: _userName);
       userRef.doc(user.id).set(user).then((value) {
