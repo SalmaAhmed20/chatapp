@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:chatapp/appConfigProvider/AppProvider.dart';
+import 'package:chatapp/database/DataBaseManger.dart';
+import 'package:chatapp/home/Home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:chatapp/auth/RegisterScreen.dart';
 
 class LoginScreen extends StatefulWidget {
  static const routeName ='Login';
@@ -10,8 +16,11 @@ class _LoginScreen extends State<LoginScreen> {
   final _registerFormKey = GlobalKey<FormState>();
   String email='';
   String password= '';
+  bool _obscureText = true;
+  late AppProvider provider;
   @override
   Widget build(BuildContext context) {
+    provider=Provider.of<AppProvider>(context);
     return Stack(
       children: [
         Container(
@@ -40,8 +49,12 @@ class _LoginScreen extends State<LoginScreen> {
                 flex:2,child:Container(
                   padding: EdgeInsets.all(12),
                 child: Column(
+
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children:[
+                    Text('Wellcome back!',style: TextStyle(fontSize: 24,
+                        fontFamily:"Poppins", fontWeight: FontWeight.bold,
+                        color:Colors.black),textDirection: TextDirection.ltr),
                    Form(
                        key: _registerFormKey,
                        child:Column(
@@ -53,9 +66,14 @@ class _LoginScreen extends State<LoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             labelText: 'Email',
+                            labelStyle: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF797979)),
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
                           ),
-                          validator: (String? contentOfEmail){
+                          validator: (contentOfEmail){
                             if(contentOfEmail!.isEmpty || contentOfEmail ==null){
                               return 'Please enter Email';
                             }else if(!isValidEmail(contentOfEmail)){
@@ -71,7 +89,22 @@ class _LoginScreen extends State<LoginScreen> {
                                },
                                keyboardType: TextInputType.emailAddress,
                                decoration: InputDecoration(
+                                 suffixIcon: IconButton(
+                                   icon: Icon(
+                                     Icons.remove_red_eye_outlined,
+                                     size: 28,
+                                     color: Color(0xFF3598DB),
+                                   ),
+                                   onPressed: () {
+                                     _toggle();
+                                   },
+                                 ),
                                  labelText: 'Password',
+                                 labelStyle: TextStyle(
+                                     fontFamily: "Poppins",
+                                     fontSize: 14,
+                                     fontWeight: FontWeight.w600,
+                                     color: Color(0xFF797979)),
                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                ),
                                validator: (String? contentOfPassword){
@@ -88,21 +121,40 @@ class _LoginScreen extends State<LoginScreen> {
                        )
                    ),
                     Spacer(),
+                    isLoading?Center(child:CircularProgressIndicator()):
                     ElevatedButton(
-                     onPressed: (){
+                        onPressed: (){
                       if(_registerFormKey.currentState?.validate()== true){
-                        //go to firebase
+                        createFirebaseUser();
                       }
-                    }, child: Padding(
+                    },
+                        child: Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: isLoading?Center(child:CircularProgressIndicator()): Text('Login'),
-                    )
-                   ), Spacer(),
+                      child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: <Widget>[
+                         Text('Login',style: TextStyle(fontSize:18, color:Colors.white,fontFamily: "Poppins",
+                         )),
+                         ImageIcon(
+                             AssetImage(
+                                 "assets/icons/3.0x/nextarrow@3x.png"),
+                             color: Color(0xFFA7A7A7))
+                           ]
+                        )
+                    ),
+                        style: ButtonStyle(
+                            backgroundColor:
+                            MaterialStateProperty.all(Colors.blue),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),
+                                ))
+                        )
+                   ),
+                    Spacer(),
                     TextButton(
                       child: Text('Or Create My Account!'),
                       onPressed:(){
-                      //  Navigator.pushReplacementNamed(context, registerscreen.ROUTE_NAME);
-                        // go to registerscreen to create a new account
+                        Navigator.pushReplacementNamed(context, RegisterScreen.routeName);
                       }
                     )
                   ]
@@ -116,6 +168,67 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
   bool isLoading = false;
-//void function to check is user already exist or not
-// using isloading variable inside this function
+void createFirebaseUser()async{
+  setState((){
+    isLoading=true;
+  });
+  try{
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email, password: password);
+    if(userCredential.user ==null){
+      ShowErrorMessage('invalid credientials no user exist with this email and password');
+    }else{
+      final userRef = getUsersRefWithConventer().doc(userCredential.user!.uid).get().then((retrievedUser){
+        provider.ChangeUser(retrievedUser.data());
+        Navigator.pushReplacementNamed(context, Home.routeName);
+      });
+    }
+  } on FirebaseAuthException catch(e){
+    ShowErrorMessage(e.message??'');
+  } catch(e){
+    ShowErrorMessage(e.toString()??'');
+  }
+  setState((){
+    isLoading = false;
+  });
+}
+
+  void ShowErrorMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (buildContext) {
+          return AlertDialog(
+            content: Text(message,
+                style: TextStyle(
+                    fontFamily: "Poppins", color: Colors.black, fontSize: 18)),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Ok", style: TextStyle(fontFamily: "Poppins")))
+            ],
+          );
+        });
+  }
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+}
+
+bool isValidEmail(String contentOfEmail) {
+
+  String characters = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+  RegExp regExp = new RegExp(characters);
+
+  return regExp.hasMatch(contentOfEmail);
+}
+bool isValidPassword(String contentOfPassword) {
+  if(contentOfPassword.length<6)
+    return false;
+  else
+    return true;
 }
