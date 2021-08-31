@@ -1,6 +1,10 @@
+import 'package:chatapp/addRoom/AddRoom.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  //await Firebase.initializeApp();
+ // WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -16,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key key,  this.title}) : super(key: key);
   final String title;
 
   @override
@@ -27,8 +31,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    // TODO: implement buil
+    return MaterialApp(routes: {
+      AddRoom.ROUTE_NAME:(buildContext)=>AddRoom(),
+    },
+      initialRoute: AddRoom.ROUTE_NAME,);
   }
 
 }
