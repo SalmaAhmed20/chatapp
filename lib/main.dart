@@ -2,9 +2,12 @@ import 'package:chatapp/addRoom/AddRoom.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  //await Firebase.initializeApp();
- // WidgetsFlutterBinding.ensureInitialized();
+import 'home/HomeScreen.dart';
+
+Future<void> main()  async {
+  await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(MyApp());
 }
 
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key,  this.title}) : super(key: key);
+  MyHomePage({Key? key,  required this.title}) : super(key: key);
   final String title;
 
   @override

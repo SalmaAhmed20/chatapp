@@ -73,7 +73,7 @@ class _AddRoomState extends State<AddRoom> {
                           labelText: "Room Name",
                           floatingLabelBehavior:FloatingLabelBehavior.always ,
                         ),
-                        validator: (String value){
+                        validator: (String ?value){
                           if(value==null ||value.isEmpty){
                             return'please enter Room Name';
                           }
@@ -89,7 +89,7 @@ class _AddRoomState extends State<AddRoom> {
                           labelText: "description",
                           floatingLabelBehavior:FloatingLabelBehavior.always ,
                         ),
-                        validator: (String value){
+                        validator: (String ? value){
                           if(value==null ||value.isEmpty){
                             return'please enter Room description';
                           }
@@ -131,8 +131,8 @@ class _AddRoomState extends State<AddRoom> {
 
                ElevatedButton(onPressed: (){
                  //Padding(padding: const EdgeInsets.only(top),
-                 if(_addRoomFormKey.currentState.validate()==true){
-                  // addRoom();
+                 if(_addRoomFormKey.currentState!.validate()==true){
+                   addRoom();
                  }
                },
                child:isloading?Center(child:CircularProgressIndicator() ,):
@@ -150,10 +150,11 @@ class _AddRoomState extends State<AddRoom> {
     );
 
   }
-  /*void addRoom(){
+  void addRoom(){
     setState(() {
       isloading=true;
     });
+
     final docRef =getRoomsCollectionWithConverter().doc();
     Room room =Room(id:docRef.id,
       name: roomName,
@@ -161,12 +162,12 @@ class _AddRoomState extends State<AddRoom> {
       category:selectedCategory);
     docRef.set(room).then((value){
       setState(() {
-        isloading=true;
+        isloading=false;
       });
       Fluttertoast.showToast(msg: 'Room Added Successfully',
         toastLength: Toast.LENGTH_LONG);
         Navigator.pop(context);
     });
 
-  }*/
+  }
 }

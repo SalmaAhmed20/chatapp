@@ -4,11 +4,11 @@ class Room{
   String name;
   String description;
   String category;
-  Room({ this.id,
-     this.name,
-     this.description,
-     this.category});
-  Room.fromJson(Map<String ,Object>json):this(
+  Room({required this.id,
+    required this.name,
+    required this.description,
+    required this.category});
+  Room.fromJson(Map<String ,dynamic>json):this(
     id : json['id'] as String,
     name : json['name'] as String,
     description : json['description'] as String,
