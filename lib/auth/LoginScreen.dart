@@ -58,7 +58,7 @@ class _LoginScreen extends State<LoginScreen> {
                           validator: (String? contentOfEmail){
                             if(contentOfEmail!.isEmpty || contentOfEmail ==null){
                               return 'Please enter Email';
-                            }else if(!isValidEmail(contentOfEmail)){
+                            }else if(true){
                               return 'Please enter valid Email';
                             }
                             return null;
@@ -77,7 +77,7 @@ class _LoginScreen extends State<LoginScreen> {
                                validator: (String? contentOfPassword){
                                  if(contentOfPassword!.isEmpty || contentOfPassword ==null){
                                    return 'Please enter Password';
-                                 }else if(!isValidPassword(contentOfPassword)){
+                                 }else if(false){
                                    return 'Password must be at least 6 characters';
                                  }
                                  return null;
