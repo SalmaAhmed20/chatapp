@@ -112,8 +112,8 @@ class _AddRoomState extends State<AddRoom> {
                           padding: const EdgeInsets.all(8.8),
                           child: Row(
                             children: [
-                              Padding(padding: const EdgeInsets.only(bottom: 10),
-                                child: Text(name),
+                              Padding(padding: const EdgeInsets.only(bottom: 0),
+                                child: Text(name,style:TextStyle(fontSize: 20)),),
                             ]
                         ),
                     ),);
