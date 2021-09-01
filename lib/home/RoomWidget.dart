@@ -1,4 +1,5 @@
 import 'package:chatapp/model/Room.dart';
+import 'package:chatapp/roomDetails/RoomDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 class RoomWidget extends StatelessWidget {
@@ -6,34 +7,39 @@ class RoomWidget extends StatelessWidget {
   RoomWidget(this.room);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin:EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color : Colors.black12,
-            blurRadius: 4,
-            offset:Offset(4,8),
-          )
-        ]
-      ),
-      child: Center(
-        child: Column(
-          children: [
-            Image(image: AssetImage("assets/images/${room.category}.png"),
-            width:double.infinity,
-              height:120,
-              fit:BoxFit.fitHeight,),
-            Text(room.name,
-            style:TextStyle(
-              fontWeight:FontWeight.w600,
-              fontSize: 24,
-            ))
-          ],
+    return InkWell(
+      onTap:(){
+         Navigator.of(context).pushNamed(RoomDetailsScreen.ROUTE_NAME,arguments: RoomDetailsArgs(room),);
+        },
+      child: Container(
+        margin:EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color : Colors.black12,
+              blurRadius: 4,
+              offset:Offset(4,8),
+            )
+          ]
         ),
-      )
+        child: Center(
+          child: Column(
+            children: [
+              Image(image: AssetImage("assets/images/${room.category}.png"),
+              width:double.infinity,
+                height:120,
+                fit:BoxFit.fitHeight,),
+              Text(room.name,
+              style:TextStyle(
+                fontWeight:FontWeight.w600,
+                fontSize: 24,
+              ))
+            ],
+          ),
+        )
+      ),
     );
   }
 }

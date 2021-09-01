@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                 future: roomsCollectionref.get(),
                 builder:(BuildContext context , AsyncSnapshot<QuerySnapshot<Room>> snapshot){
                   if(snapshot.hasError){
-                    return Text("something went wrong");
+                    return Text(snapshot.error.toString());
                   }else if(snapshot.connectionState==ConnectionState.done){
                      final List<Room>roomsList = snapshot.data?.docs.map((singleDoc) =>singleDoc.data())
                      .toList()??[];

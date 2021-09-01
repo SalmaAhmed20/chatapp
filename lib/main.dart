@@ -1,4 +1,5 @@
 import 'package:chatapp/home/HomeScreen.dart';
+import 'package:chatapp/roomDetails/RoomDetailsScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(routes: {
+      RoomDetailsScreen.ROUTE_NAME:(buildContext)=>RoomDetailsScreen(),
       HomeScreen.ROUTE_NAME:(buildContext)=>HomeScreen(),
     },
       initialRoute: HomeScreen.ROUTE_NAME,);
