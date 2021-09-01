@@ -36,10 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement buil
-    return MaterialApp(routes: {
-      HomScreen.ROUTE_NAME:(buildContext)=>HomScreen(),
-    },
-      initialRoute: HomScreen.ROUTE_NAME,);
+    return MaterialApp(home: AddRoom(),);
   }
 
 }
