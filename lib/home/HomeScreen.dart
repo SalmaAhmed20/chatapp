@@ -17,7 +17,11 @@ class  HomScreen extends StatelessWidget {
     backgroundColor: Colors.transparent,
     floatingActionButton: FloatingActionButton(
     onPressed: (){
-      Navigator.pushNamed(context, AddRoom.ROUTE_NAME);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+          builder: (context) => AddRoom()),
+      );
     },
       child: Icon(Icons.add),
 

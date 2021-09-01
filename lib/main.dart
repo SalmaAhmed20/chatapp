@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'home/HomeScreen.dart';
 
 Future<void> main()  async {
-  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
 
   runApp(MyApp());
 }
@@ -36,9 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // TODO: implement buil
     return MaterialApp(routes: {
-      AddRoom.ROUTE_NAME:(buildContext)=>AddRoom(),
+      HomScreen.ROUTE_NAME:(buildContext)=>HomScreen(),
     },
-      initialRoute: AddRoom.ROUTE_NAME,);
+      initialRoute: HomScreen.ROUTE_NAME,);
   }
 
 }

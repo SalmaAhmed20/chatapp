@@ -29,7 +29,7 @@ class _AddRoomState extends State<AddRoom> {
         fit:BoxFit.fitWidth,width:double.infinity),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(title: Text("Route Chat App"),
+          appBar: AppBar(title: Text("Chat App"),
             centerTitle: true,
             elevation: 0,
 
@@ -59,7 +59,7 @@ class _AddRoomState extends State<AddRoom> {
                 ),
                   textAlign: TextAlign.center,
                 ),
-                Image(image:AssetImage("assets/icons/movieicon.png")),
+                Image(image:AssetImage("assets/images/group.png")),
                 Form(
                   key:_addRoomFormKey,
                   child: Column(
@@ -131,7 +131,7 @@ class _AddRoomState extends State<AddRoom> {
 
                ElevatedButton(onPressed: (){
                  //Padding(padding: const EdgeInsets.only(top),
-                 if(_addRoomFormKey.currentState!.validate()==true){
+                 if(_addRoomFormKey.currentState?.validate()==true){
                    addRoom();
                  }
                },
