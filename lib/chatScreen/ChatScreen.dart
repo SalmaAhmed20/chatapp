@@ -1,4 +1,5 @@
 import 'package:chatapp/appConfigProvider/AppProvider.dart';
+import 'package:chatapp/chatScreen/MessageUi.dart';
 import 'package:chatapp/model/Message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -17,20 +18,21 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   String _typedMessage = '';
-  //late CollectionReference<Message> messageRef;
+  late CollectionReference<Message> messageRef;
   late AppProvider provider;
   late TextEditingController _msgcontlr;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _msgcontlr=TextEditingController(text: _typedMessage);
+    _msgcontlr = TextEditingController(text: _typedMessage);
   }
+
   @override
   Widget build(BuildContext context) {
-    provider =Provider.of<AppProvider>(context);
+    provider = Provider.of<AppProvider>(context);
     //messageRef=getMessageRefWithConventer(String roomID);
-    //final Stream<QuerySnapshot<Message>> _messageStream = messageRef.snapshots();
+    //final Stream<QuerySnapshot<Message>> _messageStream = messageRef.orderBy('time').snapshots();
     return Stack(children: [
       Container(
         color: Colors.white,
@@ -60,19 +62,37 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Column(
               children: [
                 //turn to listview
-                Expanded(child:Container()
-                // StreamBuilder<QuerySnapshot<Message>>(
-                //   stream:_messageStream ,
-                //   builder: (BuildContext buildContext, AsyncSnapshot<QuerySnapshot<Message>> snapshot){
-                //     if (snapshot.hasError)
-                //       return Text(snapshot.error.toString());
-                //     else if(snapshot.hasData){
-                //
-                //     }
-                //     return Center(child: CircularProgressIndicator(),);
-                //   }
-                // )
-                ),
+                Expanded(child: Container()
+                    // StreamBuilder<QuerySnapshot<Message>>(
+                    //     stream: _messageStream,
+                    //     builder: (BuildContext buildContext,
+                    //         AsyncSnapshot<QuerySnapshot<Message>>
+                    //             snapshot) {
+                    //       if (snapshot.hasError)
+                    //         return Text(snapshot.error.toString());
+                    //       else if (snapshot.hasData) {
+                    //         return (snapshot.data?.size ?? 0) > 0
+                    //             ? ListView.builder(
+                    //                 itemBuilder: (buildContext, index) {
+                    //                   MessageWidget(snapshot
+                    //                       .data?.docs[index]
+                    //                       .data());
+                    //                 },
+                    //                 itemCount: snapshot.data?.size ?? 0)
+                    //             : Center(
+                    //                 child: Text(
+                    //                 "Say Hi!",
+                    //                 style: TextStyle(
+                    //                     fontFamily: "Poppins",
+                    //                     fontSize: 24,
+                    //                     color: Colors.grey),
+                    //               ));
+                    //       }
+                    //       return Center(
+                    //         child: CircularProgressIndicator(),
+                    //       );
+                    //     })
+                    ),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 15),
                   child: Row(
@@ -140,9 +160,9 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void sendMessage() {
-    if(_typedMessage.isEmpty)return;
+    if (_typedMessage.isEmpty) return;
     // final newMessageObj=messageRef.doc()
-    // final message = Message(id:newMessageObj.id,content:_typedMessage,SenderName:provider._currentUser.userName,Time:DateTime.now().millisecondsSinceEpoch,
+    //final message = Message(id:newMessageObj.id,Content:_typedMessage,senderId:provider.getUser()?.id??"",SenderName:provider.getUser()?.userName??"",Time:DateTime.now().millisecondsSinceEpoch);
     //newMessageObj.set(message).then((value)=>{
     //setState(() {
     //      _msgcontlr.clear();

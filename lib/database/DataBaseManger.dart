@@ -11,8 +11,8 @@ getUsersRefWithConventer() {
       );
 }
 
-// getMessageRefWithConventer(String roomID) {
-//   //final roomsRef=getRoomCollectionWithConventer
-//   //return roomRef.doc(roomID).collection(Message.COLLECTION_NAME).withConverter<Message>(fromFirestore: (snapshot, _) => Message.fromJson(snapshot.data()!),toFirestore: (message, _) => message.toJson(),
-//   //     );
-// }
+getMessageRefWithConventer(String roomID) {
+  //final roomsRef=getRoomCollectionWithConventer
+  //return roomRef.doc(roomID).collection(Message.COLLECTION_NAME).withConverter<Message>(fromFirestore: (snapshot, _) => Message.fromJson(snapshot.data()!),toFirestore: (message, _) => message.toJson(),
+  //     );
+}
