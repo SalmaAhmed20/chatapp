@@ -2,7 +2,7 @@ import 'package:chatapp/database/DataBaseHelper.dart';
 import 'package:chatapp/model/Room.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AddRoom extends StatefulWidget {
   static const String ROUTE_NAME="addRoom";
@@ -71,6 +71,7 @@ class _AddRoomState extends State<AddRoom> {
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           labelText: "Room Name",
+                          labelStyle: TextStyle( fontSize: 25.0),
                           floatingLabelBehavior:FloatingLabelBehavior.always ,
                         ),
                         validator: (String ?value){
@@ -86,7 +87,8 @@ class _AddRoomState extends State<AddRoom> {
                         },
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
-                          labelText: "description",
+                          labelText: "Room Description",
+                          labelStyle: TextStyle( fontSize: 25.0),
                           floatingLabelBehavior:FloatingLabelBehavior.always ,
                         ),
                         validator: (String ? value){
@@ -96,8 +98,6 @@ class _AddRoomState extends State<AddRoom> {
                           return null;
                         },
                       ),
-
-
                     ],
                   ),
 
@@ -113,14 +113,10 @@ class _AddRoomState extends State<AddRoom> {
                           child: Row(
                             children: [
                               Padding(padding: const EdgeInsets.only(bottom: 10),
-                                child: Text(name),),
-                             /* Padding(padding: const EdgeInsets.all(10.0),
-
-                              )*/
+                                child: Text(name),
                             ]
                         ),
                     ),);
-
                     }).toList(),
                    onChanged: (newSelected){
                    setState(() {
@@ -137,13 +133,9 @@ class _AddRoomState extends State<AddRoom> {
                },
                child:isloading?Center(child:CircularProgressIndicator() ,):
                Text('Create')),
-
-
-            //),
             ],
           ),
         ),
-   // ),
         ),
         ),
       ],
@@ -164,10 +156,9 @@ class _AddRoomState extends State<AddRoom> {
       setState(() {
         isloading=false;
       });
-      //Fluttertoast.showToast(msg: 'Room Added Successfully',
-        //toastLength: Toast.LENGTH_LONG);
+      Fluttertoast.showToast(msg: 'Room Added Successfully',
+          toastLength: Toast.LENGTH_LONG);
         Navigator.pop(context);
     });
-
   }
 }

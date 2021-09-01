@@ -1,4 +1,4 @@
-import 'package:chatapp/database/DataBaseHelper.dart';
+import'package:chatapp/database/DataBaseHelper.dart';
 import 'package:chatapp/model/Room.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +11,6 @@ class HomeScreen extends StatelessWidget {
   HomeScreen(){
     roomsCollectionref=getRoomsCollectionWithConverter();
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Stack(
