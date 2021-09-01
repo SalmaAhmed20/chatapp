@@ -34,11 +34,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(routes: {
-      RoomDetailsScreen.ROUTE_NAME:(buildContext)=>RoomDetailsScreen(),
+     // RoomDetailsScreen.ROUTE_NAME:(buildContext)=>RoomDetailsScreen(),
       HomeScreen.ROUTE_NAME:(buildContext)=>HomeScreen(),
     },
       initialRoute: HomeScreen.ROUTE_NAME,);
       }
   }
 
-}
+

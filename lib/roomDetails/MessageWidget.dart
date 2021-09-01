@@ -10,10 +10,10 @@ class MessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AppConfigProvider>(context);
+    //final provider = Provider.of<AppConfigProvider>(context);
     return message==null?Container():(
-    message?.senderId==provider.myUser?.id?
-        SentMessage(message!):
+    //message?.senderId==provider.myUser?.id?
+        //SentMessage(message!):
         RecieveMessage(message!)
     );
   }

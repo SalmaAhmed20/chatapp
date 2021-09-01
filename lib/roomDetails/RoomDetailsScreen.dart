@@ -19,7 +19,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   late Room room;
 
   String typedMessage="";
-  late AppConfigProvider provider;
+  //late AppConfigProvider provider;
   late TextEditingController messageController ;
 
   late CollectionReference<Message>messagesRef;
@@ -34,7 +34,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     room = args.room!;
     messagesRef = getMessagesCollectionWithConverter(room.id);
     final Stream<QuerySnapshot<Message>>messagesStream=messagesRef.orderBy('time').snapshots();
-    provider = Provider.of<AppConfigProvider>(context);
+   // provider = Provider.of<AppConfigProvider>(context);
 
     return Stack(
       children: [
@@ -107,7 +107,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                       ),
                       InkWell(
                         onTap: (){
-                          sendMessage();
+                        //  sendMessage();
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 4),
@@ -139,21 +139,21 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     );
   }
 
-  void sendMessage() {
+  /*void sendMessage() {
     if(typedMessage.isEmpty)return;
     final newMessageObj = messagesRef.doc();
     final message = Message(id: newMessageObj.id,
         content:typedMessage,
         time: DateTime.now().microsecondsSinceEpoch,
-        senderName: provider.myUser?.userName??'',
-      senderId:provider?.id??'',);
+        //senderName: provider.myUser?.userName??'',
+      //senderId:provider?.id??'',);
     newMessageObj.set(message).
     then((value)=>{
       setState((){
        messageController.clear();
       }),
     });
-  }
+  }*/
 }
 
 class RoomDetailsArgs {
