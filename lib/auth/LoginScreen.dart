@@ -135,7 +135,7 @@ class _LoginScreen extends State<LoginScreen> {
                                 }
                               },
                               child: Padding(
-                                  padding: const EdgeInsets.all(20.0),
+                                  padding: const EdgeInsets.all(18.0),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -160,24 +160,26 @@ class _LoginScreen extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(10),
                                   )))),
                       Spacer(),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextButton(
-                              child: Text(
-                                'Or Create My Account!',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w200,
-                                    color: Color(0xFF505050)),
-                              ),
-                              onPressed: () {
-                                Navigator.pushReplacementNamed(
-                                    context, RegisterScreen.routeName);
-                              }),
-                        ],
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextButton(
+                                child: Text(
+                                  'Or Create My Account!',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w200,
+                                      color: Color(0xFF505050)),
+                                ),
+                                onPressed: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, RegisterScreen.routeName);
+                                }),
+                          ],
+                        ),
                       )
                     ]),
               )),
