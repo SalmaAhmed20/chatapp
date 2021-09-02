@@ -27,18 +27,26 @@ class SentMessage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text(message!.getDataFormatted()),
+        Text(
+          message!.getDataFormatted(),
+          style: TextStyle(
+              fontFamily: "Poppins",
+              fontSize: 12,
+              fontWeight: FontWeight.normal),
+        ),
         Container(
             padding: EdgeInsets.all(12),
             margin: EdgeInsets.all(8),
             decoration: BoxDecoration(
-                color: Colors.grey,
+                color: Color(0xFF3598DB),
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(12),
-                    bottomRight: Radius.circular(12))),
+                    topLeft: Radius.circular(12),
+                    bottomLeft: Radius.circular(12))),
             child: Text(
               message!.Content,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 20, fontFamily: "OpenSans"),
             ))
       ],
     );
@@ -51,25 +59,56 @@ class RecieveMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-            padding: EdgeInsets.all(12),
-            margin: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 248, 248, 248),
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    bottomRight: Radius.circular(12))),
-            child: Text(
-              message!.Content,
-              style: TextStyle(
-                color: Color.fromARGB(255, 120, 121, 122),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                message!.SenderName,
+                style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal),
               ),
-            )),
-        Text(message!.getDataFormatted())
-      ],
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                  padding: EdgeInsets.all(12),
+                  margin: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFE7E6E6),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          topLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12))),
+                  child: Text(
+                    message!.Content,
+                    style: TextStyle(
+                        color: Color(0xFF787993),
+                        fontSize: 20,
+                        fontFamily: "OpenSans"),
+                  )),
+            ],
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                message!.getDataFormatted(),
+                style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

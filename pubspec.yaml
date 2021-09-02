@@ -60,9 +60,20 @@ flutter:
     - family: Gotham
       fonts:
         - asset: assets/Fonts/Gotham Medium.otf
+    - family: OpenSans
+      fonts:
+        - asset: assets/Fonts/OpenSans-Regular.ttf
+        - asset: assets/Fonts/OpenSans-Bold.ttf
+        - asset: assets/Fonts/OpenSans-SemiBold.ttf
+    - family: Montserrat
+      fonts:
+        - asset: assets/Fonts/Montserrat-Regular.ttf
+        - asset: assets/Fonts/Montserrat-Medium.ttf
+        - asset: assets/Fonts/Montserrat-SemiBold.ttf
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/icons/
     - assets/icons/2.0x/
     - assets/icons/3.0x/
     - assets/images/3.0x/

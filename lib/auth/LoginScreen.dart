@@ -113,12 +113,11 @@ class _LoginScreen extends State<LoginScreen> {
                                 if (contentOfPassword!.isEmpty ||
                                     contentOfPassword == null) {
                                   return 'Please enter Password';
-                                } else if (false) {
-                                  return 'Password must be at least 6 characters';
                                 }
                                 return null;
                               },
-                              obscureText: true,
+                              onSaved: (val) => this.password = val!,
+                              obscureText: _obscureText,
                             )
                           ])),
                       Spacer(),

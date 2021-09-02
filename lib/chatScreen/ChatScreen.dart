@@ -1,6 +1,7 @@
 import 'package:chatapp/appConfigProvider/AppProvider.dart';
 import 'package:chatapp/chatScreen/MessageUi.dart';
 import 'package:chatapp/database/DataBaseHelper.dart';
+import 'package:chatapp/home/HomeScreen.dart';
 import 'package:chatapp/model/Message.dart';
 import 'package:chatapp/model/Room.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,11 +32,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args =ModalRoute.of(context)?.settings.arguments as RoomDetailsArgs;
-    room=args._room!;
+    final args = ModalRoute.of(context)?.settings.arguments as RoomDetailsArgs;
+    room = args._room!;
     provider = Provider.of<AppProvider>(context);
-    messageRef=getMessagesCollectionWithConverter(room.id);
-    final Stream<QuerySnapshot<Message>> _messageStream = messageRef.orderBy('time').snapshots();
+    messageRef = getMessagesCollectionWithConverter(room.id);
+    final Stream<QuerySnapshot<Message>> _messageStream =
+        messageRef.orderBy('time').snapshots();
     return Stack(children: [
       Container(
         color: Colors.white,
@@ -48,9 +50,28 @@ class _ChatScreenState extends State<ChatScreen> {
       Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: _labels(room.name)),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: _labels(room.name),
+            actions: [
+              PopupMenuButton(
+                  itemBuilder: (context) => [
+                        PopupMenuItem(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(context,HomeScreen.routeName);
+                            },
+                            child: Text(
+                              "Leave Room",
+                              style: TextStyle(
+                                  fontFamily: "Montserrat", fontSize: 18,color: Colors.black),
+                            ),
+                          ),
+                          value: 1,
+                        )
+                      ])
+            ],
+          ),
           body: Container(
             margin: EdgeInsets.symmetric(vertical: 30, horizontal: 24),
             decoration: BoxDecoration(
@@ -65,38 +86,38 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Column(
               children: [
                 //turn to listview
-                Expanded(child:
-                //Container()
-                    StreamBuilder<QuerySnapshot<Message>>(
-                        stream: _messageStream,
-                        builder: (BuildContext buildContext,
-                            AsyncSnapshot<QuerySnapshot<Message>>
-                                snapshot) {
-                          if (snapshot.hasError)
-                            return Text(snapshot.error.toString());
-                          else if (snapshot.hasData) {
-                            return (snapshot.data?.size ?? 0) > 0
-                                ? ListView.builder(
-                                    itemBuilder: (buildContext, index){
-                                      return MessageWidget(snapshot
-                                          .data!.docs[index]
-                                          .data());
-                                    },
-                                    itemCount: snapshot.data?.size ?? 0)
-                                : Center(
-                                    child: Text(
-                                    "Say Hi!",
-                                    style: TextStyle(
-                                        fontFamily: "Poppins",
-                                        fontSize: 24,
-                                        color: Colors.grey),
-                                  ));
-                          }
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        })
-                    ),
+                Expanded(
+                    child:
+                        //Container()
+                        StreamBuilder<QuerySnapshot<Message>>(
+                            stream: _messageStream,
+                            builder: (BuildContext buildContext,
+                                AsyncSnapshot<QuerySnapshot<Message>>
+                                    snapshot) {
+                              if (snapshot.hasError)
+                                return Text(snapshot.error.toString());
+                              else if (snapshot.hasData) {
+                                return (snapshot.data?.size ?? 0) > 0
+                                    ? ListView.builder(
+                                        itemBuilder: (buildContext, index) {
+                                          return MessageWidget(snapshot
+                                              .data!.docs[index]
+                                              .data());
+                                        },
+                                        itemCount: snapshot.data?.size ?? 0)
+                                    : Center(
+                                        child: Text(
+                                        "Say Hi!",
+                                        style: TextStyle(
+                                            fontFamily: "Poppins",
+                                            fontSize: 24,
+                                            color: Colors.grey),
+                                      ));
+                              }
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            })),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 15),
                   child: Row(
@@ -165,13 +186,22 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void sendMessage() {
     if (_typedMessage.isEmpty) return;
-    final newMessageObj=messageRef.doc();
-    final message = Message(id:newMessageObj.id,Content:_typedMessage,senderId:provider.getUser()?.id??"",SenderName:provider.getUser()?.userName??"",Time:DateTime.now().millisecondsSinceEpoch);
-    newMessageObj.set(message).then((value)=>{
-    setState(() {
-         _msgcontlr.clear();
-        })});
+    final newMessageObj = messageRef.doc();
+    final message = Message(
+        id: newMessageObj.id,
+        Content: _typedMessage,
+        senderId: provider.getUser()?.id ?? "",
+        SenderName: provider.getUser()?.userName ?? "",
+        Time: DateTime.now().millisecondsSinceEpoch);
+    newMessageObj.set(message).then((value) => {
+          setState(() {
+            _msgcontlr.clear();
+          })
+        });
+  }
 
+  void _close() {
+    Navigator.pop(context);
   }
 }
 
@@ -187,9 +217,8 @@ _labels(String label) {
     ),
   );
 }
-class RoomDetailsArgs
-{
-  Room ? _room;
-  RoomDetailsArgs(this._room);
 
+class RoomDetailsArgs {
+  Room? _room;
+  RoomDetailsArgs(this._room);
 }
