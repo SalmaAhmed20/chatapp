@@ -24,7 +24,10 @@ class HomeScreen extends StatelessWidget {
           fit:BoxFit.fitWidth,width: double.infinity,),
         Scaffold(
          backgroundColor: Colors.transparent,
-          appBar:AppBar(title:Text('Route Chat App'),
+          appBar:AppBar(title:Text('Route Chat App',style:
+          TextStyle(
+            fontSize: 25,
+          )),
           elevation: 0,
               centerTitle: true,
               backgroundColor: Colors.transparent,),

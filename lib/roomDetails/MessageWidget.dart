@@ -1,4 +1,3 @@
-
 import 'package:chatapp/model/Message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +72,4 @@ class RecieveMessage extends StatelessWidget {
     );
   }
 }
-
-
 

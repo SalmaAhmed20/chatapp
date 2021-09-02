@@ -11,6 +11,7 @@ class RoomWidget extends StatelessWidget {
       onTap:(){
          Navigator.of(context).pushNamed(RoomDetailsScreen.ROUTE_NAME,arguments: RoomDetailsArgs(room),);
         },
+      child:Expanded(
       child: Container(
         margin:EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -25,20 +26,27 @@ class RoomWidget extends StatelessWidget {
           ]
         ),
         child: Center(
-          child: Column(
-            children: [
-              Image(image: AssetImage("assets/icons/${room.category}.png"),
-              width:double.infinity,
-                height:120,
-                fit:BoxFit.fitHeight,),
-              Text(room.name,
-              style:TextStyle(
-                fontWeight:FontWeight.w600,
-                fontSize: 24,
-              ))
-            ],
+          child: Expanded(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Image(image: AssetImage("assets/icons/${room.category}.png",),
+                    fit: BoxFit.fitWidth,
+                    width: double.infinity ,
+                    ),
+                ),
+
+                Text(
+                    room.name,
+                style:TextStyle(
+                  fontWeight:FontWeight.w600,
+                  fontSize: 24,
+                )),
+              ],
+            ),
           ),
         )
+      ),
       ),
     );
   }

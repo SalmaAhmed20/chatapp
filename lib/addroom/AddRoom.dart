@@ -1,4 +1,5 @@
 import 'package:chatapp/database/DataBaseHelper.dart';
+import 'package:chatapp/home/HomeScreen.dart';
 import 'package:chatapp/model/Room.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,9 @@ class _AddRoomState extends State<AddRoom> {
         fit:BoxFit.fitWidth,width:double.infinity),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(title: Text("Chat App"),
+          appBar: AppBar(title: Text("Chat App",style:TextStyle(
+            fontSize: 25,
+          )),
             centerTitle: true,
             elevation: 0,
 
@@ -124,7 +127,6 @@ class _AddRoomState extends State<AddRoom> {
                    });
                   },
                 ),
-
                ElevatedButton(onPressed: (){
                  //Padding(padding: const EdgeInsets.only(top),
                  if(_addRoomFormKey.currentState?.validate()==true){
@@ -158,7 +160,7 @@ class _AddRoomState extends State<AddRoom> {
       });
       Fluttertoast.showToast(msg: 'Room Added Successfully',
           toastLength: Toast.LENGTH_LONG);
-        Navigator.pop(context);
+          Navigator.pushReplacementNamed(context,  HomeScreen .ROUTE_NAME);
     });
   }
 }
