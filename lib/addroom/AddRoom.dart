@@ -139,8 +139,8 @@ class _AddRoomState extends State<AddRoom> {
                       },
                       child: isloading
                           ? Center(
-                              child: CircularProgressIndicator(),
-                            )
+                        child: CircularProgressIndicator(),
+                      )
                           : Text('Create')),
                 ],
               ),
