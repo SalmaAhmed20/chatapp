@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
       child: Text(
         'Home',
         style: TextStyle(
-          fontSize: 14.0,
+
           fontWeight: FontWeight.w400,
         ),
       ),
