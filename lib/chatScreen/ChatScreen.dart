@@ -55,16 +55,26 @@ class _ChatScreenState extends State<ChatScreen> {
             title: _labels(room.name),
             actions: [
               PopupMenuButton(
+                  offset: Offset(0, kToolbarHeight),
+                  iconSize: 30,
                   itemBuilder: (context) => [
                         PopupMenuItem(
                           child: TextButton(
                             onPressed: () {
-                              Navigator.pushReplacementNamed(context,HomeScreen.routeName);
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          HomeScreen()));
                             },
                             child: Text(
                               "Leave Room",
                               style: TextStyle(
-                                  fontFamily: "Montserrat", fontSize: 18,color: Colors.black),
+                                  fontFamily: "Montserrat",
+                                  fontSize: 18,
+                                  color: Colors.black),
                             ),
                           ),
                           value: 1,
@@ -87,37 +97,33 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 //turn to listview
                 Expanded(
-                    child:
-                        //Container()
-                        StreamBuilder<QuerySnapshot<Message>>(
-                            stream: _messageStream,
-                            builder: (BuildContext buildContext,
-                                AsyncSnapshot<QuerySnapshot<Message>>
-                                    snapshot) {
-                              if (snapshot.hasError)
-                                return Text(snapshot.error.toString());
-                              else if (snapshot.hasData) {
-                                return (snapshot.data?.size ?? 0) > 0
-                                    ? ListView.builder(
-                                        itemBuilder: (buildContext, index) {
-                                          return MessageWidget(snapshot
-                                              .data!.docs[index]
-                                              .data());
-                                        },
-                                        itemCount: snapshot.data?.size ?? 0)
-                                    : Center(
-                                        child: Text(
-                                        "Say Hi!",
-                                        style: TextStyle(
-                                            fontFamily: "Poppins",
-                                            fontSize: 24,
-                                            color: Colors.grey),
-                                      ));
-                              }
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            })),
+                    child: StreamBuilder<QuerySnapshot<Message>>(
+                        stream: _messageStream,
+                        builder: (BuildContext buildContext,
+                            AsyncSnapshot<QuerySnapshot<Message>> snapshot) {
+                          if (snapshot.hasError)
+                            return Text(snapshot.error.toString());
+                          else if (snapshot.hasData) {
+                            return (snapshot.data?.size ?? 0) > 0
+                                ? ListView.builder(
+                                    itemBuilder: (buildContext, index) {
+                                      return MessageWidget(
+                                          snapshot.data!.docs[index].data());
+                                    },
+                                    itemCount: snapshot.data?.size ?? 0)
+                                : Center(
+                                    child: Text(
+                                    "Say Hi!",
+                                    style: TextStyle(
+                                        fontFamily: "Poppins",
+                                        fontSize: 24,
+                                        color: Colors.grey),
+                                  ));
+                          }
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        })),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 15),
                   child: Row(
