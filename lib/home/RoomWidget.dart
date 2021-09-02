@@ -1,5 +1,5 @@
+import 'package:chatapp/chatScreen/ChatScreen.dart';
 import 'package:chatapp/model/Room.dart';
-import 'package:chatapp/roomDetails/RoomDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 class RoomWidget extends StatelessWidget {
@@ -9,7 +9,7 @@ class RoomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap:(){
-         Navigator.of(context).pushNamed(RoomDetailsScreen.ROUTE_NAME,arguments: RoomDetailsArgs(room),);
+         Navigator.of(context).pushNamed(ChatScreen.routeName,arguments: RoomDetailsArgs(room),);
         },
       child:Expanded(
       child: Container(

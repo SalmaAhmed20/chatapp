@@ -1,6 +1,6 @@
 import 'package:chatapp/appConfigProvider/AppProvider.dart';
-import 'package:chatapp/database/DataBaseManger.dart';
-import 'package:chatapp/home/Home.dart';
+import 'package:chatapp/database/DataBaseHelper.dart';
+import 'package:chatapp/home/HomeScreen.dart';
 import 'package:chatapp/model/User.dart' as MyUser;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -189,7 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           id: userCredential.user!.uid, email: _email, userName: _userName);
       userRef.doc(user.id).set(user).then((value) {
         provider.ChangeUser(user);
-        Navigator.pushReplacementNamed(context,Home.routeName);
+        Navigator.pushReplacementNamed(context,HomeScreen.routeName);
       });
     } on FirebaseAuthException catch (e) {
       ShowMessage(e.message ?? "Something went wrong");

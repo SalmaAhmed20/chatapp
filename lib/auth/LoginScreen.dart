@@ -1,8 +1,8 @@
+import 'package:chatapp/database/DataBaseHelper.dart';
+import 'package:chatapp/home/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/appConfigProvider/AppProvider.dart';
-import 'package:chatapp/database/DataBaseManger.dart';
-import 'package:chatapp/home/Home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:chatapp/auth/RegisterScreen.dart';
@@ -80,8 +80,6 @@ class _LoginScreen extends State<LoginScreen> {
                                 if (contentOfEmail!.isEmpty ||
                                     contentOfEmail == null) {
                                   return 'Please enter Email';
-                                } else if (true) {
-                                  return 'Please enter valid Email';
                                 }
                                 return null;
                               },
@@ -201,7 +199,7 @@ class _LoginScreen extends State<LoginScreen> {
           .get()
           .then((retrievedUser) {
         provider.ChangeUser(retrievedUser.data());
-        Navigator.pushReplacementNamed(context, Home.routeName);
+        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
       });
     } on FirebaseAuthException catch (e) {
       ShowErrorMessage(e.message!);

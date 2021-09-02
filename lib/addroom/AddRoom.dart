@@ -160,7 +160,7 @@ class _AddRoomState extends State<AddRoom> {
       });
       Fluttertoast.showToast(msg: 'Room Added Successfully',
           toastLength: Toast.LENGTH_LONG);
-          Navigator.pushReplacementNamed(context,  HomeScreen .ROUTE_NAME);
+          Navigator.pushReplacementNamed(context,  HomeScreen.routeName);
     });
   }
 }
