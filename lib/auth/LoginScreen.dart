@@ -39,6 +39,7 @@ class _LoginScreen extends State<LoginScreen> {
             title: Text('Login',
                 style: TextStyle(
                   color: Colors.white,
+                  fontFamily: "Poppins",
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
                 ))),

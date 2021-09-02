@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
               HomeScreen.routeName: (buildContext) => HomeScreen(),
               ChatScreen.routeName: (buildContext) => ChatScreen()
             },
-            initialRoute: LoginScreen.routeName,
+            initialRoute: SplashScreen.routeName,
           );
         });
   }
