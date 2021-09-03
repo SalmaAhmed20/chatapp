@@ -47,13 +47,13 @@ class _JoinScreenState extends State<JoinScreen> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(18),
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 4,
-                          offset: Offset(4, 8),
-                        )
-                      ]),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        blurRadius: 4,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],),
                   margin: EdgeInsets.symmetric(vertical: 30,horizontal: 32),
                   child: Column(children: [
                     Padding(

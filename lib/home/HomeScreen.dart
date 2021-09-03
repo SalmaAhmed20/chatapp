@@ -18,7 +18,9 @@ class HomeScreen extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: Colors.white,
+
           ),
+
         ),
         Image(
           image: AssetImage('assets/images/SIGN IN – 1.png'),
@@ -64,6 +66,7 @@ class HomeScreen extends StatelessWidget {
                         crossAxisSpacing: 4,
                         mainAxisSpacing: 4,
                         childAspectRatio: .75/1,
+
                       ),
                       itemBuilder: (buildContext, index) {
                         return RoomWidget(roomsList[index]);
