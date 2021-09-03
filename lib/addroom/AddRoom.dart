@@ -30,12 +30,14 @@ class _AddRoomState extends State<AddRoom> {
         fit:BoxFit.fitWidth,width:double.infinity),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(title: Text("Chat App",style:TextStyle(
-            fontSize: 25,
-          )),
-            centerTitle: true,
+          appBar: AppBar(
+            title: Text("Chat App",
+                style: TextStyle(
+                  fontSize: 25,
+                )),
             elevation: 0,
-
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
           ),
 
         body:Center(

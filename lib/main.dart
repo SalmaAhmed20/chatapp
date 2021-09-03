@@ -2,6 +2,8 @@ import 'package:chatapp/appConfigProvider/AppProvider.dart';
 import 'package:chatapp/auth/LoginScreen.dart';
 import 'package:chatapp/auth/RegisterScreen.dart';
 import 'package:chatapp/home/Home.dart';
+import 'package:chatapp/home/HomeScreen.dart';
+import 'package:chatapp/roomDetails/JoinScreen.dart';
 import 'package:chatapp/splachScreen/SplachScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +25,11 @@ class MyApp extends StatelessWidget {
         SplashScreen.routeName:(buildContext)=>SplashScreen(),
         LoginScreen.routeName:(buildContext)=>LoginScreen(),
         RegisterScreen.routeName:(buildContext)=>RegisterScreen(),
-        Home.routeName:(buildContext)=>Home()
+        HomeScreen.ROUTE_NAME:(buildContext)=>HomeScreen(),
+        RoomDetailsScreen.ROUTE_NAME:(buildContext)=>RoomDetailsScreen(),
       },
       initialRoute: SplashScreen.routeName,);
     });
     }
   }
 
-}

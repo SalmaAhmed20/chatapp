@@ -1,3 +1,4 @@
+import 'package:chatapp/home/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/appConfigProvider/AppProvider.dart';
@@ -132,6 +133,8 @@ class _LoginScreen extends State<LoginScreen> {
                                 if (_registerFormKey.currentState?.validate() ==
                                     true) {
                                   createFirebaseUser();
+                                  Navigator.pushReplacementNamed(
+                                      context, HomeScreen.ROUTE_NAME);
                                 }
                               },
                               child: Padding(
@@ -158,7 +161,11 @@ class _LoginScreen extends State<LoginScreen> {
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
-                                  )))),
+                                  )
+                                  )
+                              ),
+
+                      ),
                       Spacer(),
                       Expanded(
                         child: Row(
