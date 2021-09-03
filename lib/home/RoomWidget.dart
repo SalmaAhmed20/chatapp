@@ -11,7 +11,7 @@ class RoomWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed(
-          RoomDetailsScreen.ROUTE_NAME,
+          JoinScreen.ROUTE_NAME,
           arguments: RoomDetailsArgs(room),
 
         );

@@ -2,14 +2,14 @@ import 'package:chatapp/model/Room.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RoomDetailsScreen extends StatefulWidget {
+class JoinScreen extends StatefulWidget {
   static const ROUTE_NAME = 'Room-Details';
 
   @override
-  _RoomDetailsScreenState createState() => _RoomDetailsScreenState();
+  _JoinScreenState createState() => _JoinScreenState();
 }
 
-class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
+class _JoinScreenState extends State<JoinScreen> {
   late Room room;
 
   @override
