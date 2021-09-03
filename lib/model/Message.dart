@@ -1,35 +1,39 @@
 import 'package:intl/intl.dart';
 
-class Message{
-  static const COLLECTION_NAME='messages';
+class Message {
+  static const String COLLECTION_NAME = "message";
   String id;
-  String content;
-  int time;
-  String senderName;
+  String Content;
+  int Time;
+  String SenderName;
   String senderId;
-  Message({ required this.id,
-    required this.content,
-    required this.time,
-    required this.senderName,
-    required this.senderId});
-  Message.fromJson(Map<String ,dynamic>json):this(
-    id : json['id'] as String,
-    content : json['content'] as String,
-    time : json['time'] as int,
-    senderName : json['senderName'] as String,
-    senderId : json['senderId'] as String,);
-  Map<String , Object>toJson(){
-    return{
-      'id' :id,
-      'content' : content,
-      'time' : time,
-      'senderName' :senderName,
-      'senderId' :senderId,
+  Message(
+      {required this.id,
+      required this.Content,
+      required this.senderId,
+      required this.SenderName,
+      required this.Time});
+  Message.fromJson(Map<String, Object?> json)
+      : this(
+          id: json['id']! as String,
+          Content: json['content']! as String,
+          Time: json['time']! as int,
+          SenderName: json['sender']! as String,
+          senderId: json['senderId']! as String,
+        );
+  Map<String, Object?> toJson() {
+    return {
+      'id': id,
+      'content': Content,
+      'time': Time,
+      'sender': SenderName,
+      'senderId': senderId,
     };
   }
-  String getDataFormatted(){
-    var outputFormat = DateFormat("HH:mm a");
 
-    return outputFormat.format(DateTime.fromMicrosecondsSinceEpoch(time));
+  String getDataFormatted() {
+    var FormattedDate = DateFormat("HH:mm a");
+
+    return FormattedDate.format(DateTime.fromMicrosecondsSinceEpoch(Time));
   }
 }

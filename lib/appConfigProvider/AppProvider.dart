@@ -7,4 +7,8 @@ class AppProvider extends ChangeNotifier {
     this._currentUser = user;
     notifyListeners();
   }
+  getUser()
+  {
+    return _currentUser;
+  }
 }

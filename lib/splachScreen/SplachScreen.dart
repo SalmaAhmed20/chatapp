@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:chatapp/auth/LoginScreen.dart';
-import 'package:chatapp/auth/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 
 

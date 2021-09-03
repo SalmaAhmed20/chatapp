@@ -6,7 +6,7 @@ import 'package:chatapp/addRoom/AddRoom.dart';
 import 'RoomWidget.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String ROUTE_NAME = 'home';
+  static const String routeName = 'home';
   late CollectionReference<Room> roomsCollectionref;
   HomeScreen() {
     roomsCollectionref = getRoomsCollectionWithConverter();

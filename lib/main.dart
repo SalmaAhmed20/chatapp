@@ -3,6 +3,8 @@ import 'package:chatapp/auth/LoginScreen.dart';
 import 'package:chatapp/auth/RegisterScreen.dart';
 import 'package:chatapp/home/HomeScreen.dart';
 import 'package:chatapp/roomDetails/JoinScreen.dart';
+import 'package:chatapp/chatScreen/ChatScreen.dart';
+import 'package:chatapp/home/HomeScreen.dart';
 import 'package:chatapp/splachScreen/SplachScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,16 +20,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (context) => AppProvider(),
+    return ChangeNotifierProvider(
+        create: (context) => AppProvider(),
         builder: (context, widget) {
-          return MaterialApp(routes: {
-            SplashScreen.routeName: (buildContext) => SplashScreen(),
-            LoginScreen.routeName: (buildContext) => LoginScreen(),
-            RegisterScreen.routeName: (buildContext) => RegisterScreen(),
-            HomeScreen.ROUTE_NAME: (buildContext) => HomeScreen(),
-            JoinScreen.ROUTE_NAME: (buildContext) => JoinScreen(),
-          },
-            initialRoute: SplashScreen.routeName,);
+          return MaterialApp(
+            routes: {
+              SplashScreen.routeName: (buildContext) => SplashScreen(),
+              LoginScreen.routeName: (buildContext) => LoginScreen(),
+              RegisterScreen.routeName: (buildContext) => RegisterScreen(),
+              HomeScreen.routeName: (buildContext) => HomeScreen(),
+              ChatScreen.routeName: (buildContext) => ChatScreen(),
+              JoinScreen.ROUTE_NAME: (buildContext) => JoinScreen(),
+            },
+            initialRoute: SplashScreen.routeName,
+          );
         });
   }
 }

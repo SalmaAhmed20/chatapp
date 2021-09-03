@@ -1,9 +1,8 @@
+import 'package:chatapp/database/DataBaseHelper.dart';
 import 'package:chatapp/home/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/appConfigProvider/AppProvider.dart';
-import 'package:chatapp/database/DataBaseManger.dart';
-import 'package:chatapp/home/Home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:chatapp/auth/RegisterScreen.dart';
@@ -40,6 +39,7 @@ class _LoginScreen extends State<LoginScreen> {
             title: Text('Login',
                 style: TextStyle(
                   color: Colors.white,
+                  fontFamily: "Poppins",
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
                 ))),
@@ -81,8 +81,6 @@ class _LoginScreen extends State<LoginScreen> {
                                 if (contentOfEmail!.isEmpty ||
                                     contentOfEmail == null) {
                                   return 'Please enter Email';
-                                } else if (!isValidEmail(contentOfEmail)) {
-                                  return 'Please enter valid Email';
                                 }
                                 return null;
                               },
@@ -116,13 +114,11 @@ class _LoginScreen extends State<LoginScreen> {
                                 if (contentOfPassword!.isEmpty ||
                                     contentOfPassword == null) {
                                   return 'Please enter Password';
-                                } else if (!isValidPassword(
-                                    contentOfPassword)) {
-                                  return 'Password must be at least 6 characters';
                                 }
                                 return null;
                               },
-                              obscureText: true,
+                              onSaved: (val) => this.password = val!,
+                              obscureText: _obscureText,
                             )
                           ])),
                       Spacer(),
@@ -133,8 +129,6 @@ class _LoginScreen extends State<LoginScreen> {
                                 if (_registerFormKey.currentState?.validate() ==
                                     true) {
                                   createFirebaseUser();
-                                  Navigator.pushReplacementNamed(
-                                      context, HomeScreen.ROUTE_NAME);
                                 }
                               },
                               child: Padding(
@@ -161,11 +155,7 @@ class _LoginScreen extends State<LoginScreen> {
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
-                                  )
-                                  )
-                              ),
-
-                      ),
+                                  )))),
                       Spacer(),
                       Expanded(
                         child: Row(
@@ -209,7 +199,7 @@ class _LoginScreen extends State<LoginScreen> {
           .get()
           .then((retrievedUser) {
         provider.ChangeUser(retrievedUser.data());
-        Navigator.pushReplacementNamed(context, Home.routeName);
+        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
       });
     } on FirebaseAuthException catch (e) {
       ShowErrorMessage(e.message!);
