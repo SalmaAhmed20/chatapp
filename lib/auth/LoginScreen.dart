@@ -129,6 +129,8 @@ class _LoginScreen extends State<LoginScreen> {
                                 if (_registerFormKey.currentState?.validate() ==
                                     true) {
                                   createFirebaseUser();
+                                  Navigator.pushReplacementNamed(
+                                      context, HomeScreen.routeName);
                                 }
                               },
                               child: Padding(

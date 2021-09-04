@@ -4,6 +4,7 @@ import 'package:chatapp/database/DataBaseHelper.dart';
 import 'package:chatapp/home/HomeScreen.dart';
 import 'package:chatapp/model/Message.dart';
 import 'package:chatapp/model/Room.dart';
+import 'package:chatapp/model/RoomDetailsArgs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as RoomDetailsArgs;
-    room = args._room!;
+    room = args.room!;
     provider = Provider.of<AppProvider>(context);
     messageRef = getMessagesCollectionWithConverter(room.id);
     final Stream<QuerySnapshot<Message>> _messageStream =
@@ -224,7 +225,3 @@ _labels(String label) {
   );
 }
 
-class RoomDetailsArgs {
-  Room? _room;
-  RoomDetailsArgs(this._room);
-}

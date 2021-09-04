@@ -1,4 +1,6 @@
+import 'package:chatapp/chatScreen/ChatScreen.dart';
 import 'package:chatapp/model/Room.dart';
+import 'package:chatapp/model/RoomDetailsArgs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -92,7 +94,12 @@ class _JoinScreenState extends State<JoinScreen> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.of(context).pushNamed(
+                          ChatScreen.routeName,
+                          arguments: RoomDetailsArgs(room),
+                        );
+                      },
                       child: Text('Join'),style: ElevatedButton.styleFrom(
                         fixedSize: Size(120.0 , 15.0),
                       ),),
@@ -104,7 +111,4 @@ class _JoinScreenState extends State<JoinScreen> {
   }
 }
 
-class RoomDetailsArgs {
-  Room? room;
-  RoomDetailsArgs(this.room);
-}
+
